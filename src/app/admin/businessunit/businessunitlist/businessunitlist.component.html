@@ -1,0 +1,73 @@
+<p-card class="bslist">
+  <p-table class="table-striped" [columns]="cols" [paginator]="true" [rows]="5" #dt [value]="buUtilityServ.allBusinessUnits">
+    <ng-template pTemplate="caption">
+      <div class="row no-gutters">
+        <div class="col-7 caption-header">
+          <span class="align-middle">Business Unit List</span>
+        </div>
+        <div class="col-2">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+              <i class="fa fa-search"></i>
+            </span>
+            <input style="width:100%" id="float-input" type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')"
+              icon="fa fa-search" class="search" placeholder="Search Business Units">
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="ui-inputgroup">
+            <p-dropdown [options]="filters" [(ngModel)]="selectedFilter" (onChange)="filterOnChange()"></p-dropdown>
+          </div>
+        </div>
+        <div class="col-1">
+          <button pButton type="button" styleClass="ui-button-info ui-button-rounded" class="button-rounded" icon="fa fa-plus" (click)="goToCreateNew()"></button>
+          <button pButton type="button" styleClass="ui-button-info ui-button-rounded" class="ml-3 button-rounded" icon="pi-directive"></button>
+        </div>
+      </div>
+
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <!-- BN -->
+        <th>Information</th>
+        <th width="10%">Status</th>
+        <th width="8%">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bu>
+      <!-- <tr [ngClass]="{'shadow':buUtilityServ.selectedBu?.id == bu.id}"> -->
+      <tr>
+        <!-- <td>{{bu.id}}</td> -->
+        <td class="font-weight-bold">
+          <a (click)="selectBu(bu)" href="javascript:void(0);">{{bu.name}}</a>
+        </td>
+        <td>{{bu.description}}</td>
+        <td>
+
+        </td>
+        <td>
+          <span class="hand" (click)="changeActiveStatus(bu.id, bu.active)" [ngClass]="bu.active ? 'text-success' : 'text-secondary'">
+            <i class="fa fa-circle"></i>
+          </span>
+          <!-- BN -->
+          <span class="ml-3 text-warning" *ngIf="bu.root">
+            <i class="fa fa-gear"></i>
+          </span>
+        </td>
+        <td>
+          <!-- BN -->
+          <span (click)="editBu(bu)" class="hand text-primary">
+            <i class="fa fa-pencil"></i>
+          </span>
+          <span (click)="deleteBu(bu.id)" class="ml-3 hand text-secondary">
+            <i class="fa fa-trash"></i>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

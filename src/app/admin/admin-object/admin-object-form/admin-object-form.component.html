@@ -1,0 +1,207 @@
+<p-sidebar [(visible)]="objectUtServ.showFormTab" position="right" [baseZIndex]="10000"
+           styleClass="ui-sidebar-md">
+  <div class="sideBarContent" *ngIf="objectUtServ.showOnFormTab === 'Objects'" style="margin-top: 50px;">
+    <form #form="ngForm" (ngSubmit)="createObject()">
+      <div class="createObject"><span>{{(objectUtServ.editMode) ? 'Edit Object Details' : 'Create Object'}}</span></div>
+      <div class="inputContainer">
+        <span class="ui-float-label">
+          <input id="float-input" type="text" pInputText class="customInput" required name="objectName" #objectName="ngModel"
+                 [(ngModel)]="objectUtServ.objectTemplate.objectName">
+          <label for="float-input"><span class="mainLabel">OBJECT NAME</span></label>
+        </span>
+      </div>
+      <div class="inputContainer">
+        <span class="ui-float-label">
+          <input id="float-input3" type="text" pInputText class="customInput" required name="objectApiName" #objectApiName="ngModel"
+                 [(ngModel)]="objectUtServ.objectTemplate.apiName">
+          <label for="float-input3"><span class="mainLabel">API Name</span></label>
+        </span>
+      </div>
+      <div class="inputContainer">
+        <span class="ui-float-label">
+          <input id="float-input2" type="text" pInputText class="customInput" required name="description" #description="ngModel"
+                 [(ngModel)]="objectUtServ.objectTemplate.description">
+          <label for="float-input2"><span class="mainLabel">Description</span></label>
+        </span>
+      </div>
+      <div class="inputContainer">
+        <span class="ui-float-label">
+          <input id="float-input4" type="text" pInputText class="customInput" required name="helpText" #helpText="ngModel"
+                 [(ngModel)]="objectUtServ.objectTemplate.helpText">
+          <label for="float-input4"><span class="mainLabel">Help Text</span></label>
+        </span>
+      </div>
+      <div class="inputContainer">
+        <button class="customButton" [disabled]="form.invalid" type="submit">{{(objectUtServ.editMode) ? 'Update' : 'Create'}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="sideBarContent" *ngIf="objectUtServ.showOnFormTab === 'Fields'">
+    <div style="max-height: 720px; overflow: auto;">
+      <form #form="ngForm" (ngSubmit)="createField()">
+        <div class="createObject"><span>{{(objectUtServ.editMode) ? 'Edit Field Details' : 'Add New Field'}}</span></div>
+        <div class="inputContainerNew">
+        <span class="ui-float-label">
+          <input id="float-input11" type="text" pInputText class="customInput" required name="fieldName" #fieldName="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.name">
+          <label for="float-input11"><span class="mainLabel">NAME</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew">
+        <span class="ui-float-label">
+          <input id="float-input12" type="text" pInputText class="customInput" name="fieldApiname" #fieldApiname="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.apiName">
+          <label for="float-input12"><span class="mainLabel">API Name</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew">
+        <span class="ui-float-label">
+          <input id="float-input13" type="text" pInputText class="customInput" name="fieldDescription" #fieldDescription="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.description">
+          <label for="float-input13"><span class="mainLabel">Description</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew" style="margin-bottom: 10px;">
+        <span class="ui-float-label">
+          <input id="float-input14" type="text" pInputText class="customInput" name="fieldHelpText" #fieldHelpText="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.help">
+          <label for="float-input14"><span class="mainLabel">Help Text</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew">
+        <span>
+           <label for="productType" ><span
+             class="mainLabel selectLabel">Type</span></label><br>
+           <select class="selectClass" name="productType" id="productType" [(ngModel)]="objectUtServ.fieldTemplate.type" (change)="changeType()" required>
+              <option value disabled selected style="color: #cccccc;">Select type</option>
+              <option *ngFor="let TY of TYPES" [value]="TY.name">{{TY.name}}</option>
+           </select>
+        </span>
+        </div>
+        <div class="inputContainerNew" style="display: flex;">
+          <div class="checkParent"><p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.mandatory" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Mandatory</span></div>
+          <div class="checkParent"><p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.secure" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Secure</span></div>
+          <div class="checkParent"><p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.unique" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Unique</span></div>
+        </div>
+        <div class="inputContainerNew"
+             [hidden]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.AUTO ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.FORMULA ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.REFERENCE">
+        <span class="ui-float-label">
+          <input id="float-input15" type="text" pInputText class="customInput" name="fieldDefaultValue" #fieldDefaultValue="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.defaultValue">
+          <label for="float-input15"><span class="mainLabel">Default Value</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew"
+             [hidden]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.AUTO ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.CHECH_BOX ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.DATE ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.DATE_TIME ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.EMAIL ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.FORMULA ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.GEO_LOCATION ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.REFERENCE ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.PICK_LIST ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.MULTI_PICK_LIST">
+        <span class="ui-float-label">
+          <input id="float-input16" type="text" pInputText class="customInput" name="fieldLength" #fieldLength="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.length" required>
+          <label for="float-input16"><span class="mainLabel">Length</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew" style="margin-bottom: 10px;"
+             [hidden]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.AUTO ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.CHECH_BOX ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.DATE ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.DATE_TIME ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.EMAIL ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.FORMULA ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.GEO_LOCATION ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.REFERENCE ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.NUMBER ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.STRING ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.PICK_LIST ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.MULTI_PICK_LIST">
+        <span class="ui-float-label">
+          <input id="float-input17" type="text" pInputText class="customInput" name="fieldDecimal" #fieldDecimal="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.decimals"
+                 [required]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.CURRENCY ||
+                 objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.BIG_NUMBER ||
+                 objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.PERCENT ||
+                 objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.REAL ||
+                 objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.BIG_REAL">
+          <label for="float-input17"><span class="mainLabel">Decimals</span></label>
+        </span>
+        </div>
+        <div *ngIf="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.AUTO">
+          <div class="inputContainerNew">
+            <p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.autogen" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Auto Gen</span>
+          </div>
+          <div class="inputContainerNew">
+            <span class="ui-float-label">
+              <input id="float-input20" type="text" pInputText class="customInput" name="fieldSequenceName" #fieldSequenceName="ngModel"
+                     [(ngModel)]="objectUtServ.fieldTemplate.sequenceName" [required]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.AUTO">
+              <label for="float-input20"><span class="mainLabel">Sequence Name</span></label>
+            </span>
+          </div>
+          <div class="inputContainerNew">
+            <span class="ui-float-label">
+              <input id="float-input21" type="text" pInputText class="customInput" name="fieldFormat" #fieldFormat="ngModel"
+                     [(ngModel)]="objectUtServ.fieldTemplate.format">
+              <label for="float-input21"><span class="mainLabel">Format</span></label>
+            </span>
+          </div>
+        </div>
+        <div class="inputContainerNew"
+             *ngIf="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.PICK_LIST ||
+             objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.MULTI_PICK_LIST">
+        <span class="ui-float-label">
+          <input id="float-input18" type="text" pInputText class="customInput" name="fieldLOV" #fieldLOV="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.lov"
+                 [required]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.PICK_LIST ||
+                 objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.MULTI_PICK_LIST">
+          <label for="float-input18"><span class="mainLabel">LOV</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew"
+             *ngIf="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.FORMULA">
+        <span class="ui-float-label">
+          <input id="float-input19" type="text" pInputText class="customInput" name="fieldFormula" #fieldFormula="ngModel"
+                 [(ngModel)]="objectUtServ.fieldTemplate.formula"
+                 [required]="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.FORMULA">
+          <label for="float-input19"><span class="mainLabel">Formula</span></label>
+        </span>
+        </div>
+        <div class="inputContainerNew" style="margin-bottom: 10px;" *ngIf="objectUtServ.fieldTemplate.type === objectUtServ.TypeConstants.REFERENCE">
+          <span>
+             <label for="productType1" ><span
+               class="mainLabel selectLabel">Ref. Object</span></label><br>
+             <select class="selectClass" name="productType1" id="productType1" [(ngModel)]="objectUtServ.fieldTemplate.refObject">
+                <option value disabled selected style="color: #cccccc;">Select Ref. Object</option>
+                <option *ngFor="let RO of objectUtServ.allObjects" [value]="RO.id" [selected]="objectUtServ.fieldTemplate.refObject === RO.id">{{RO.objectName}}</option>
+             </select>
+          </span>
+        </div>
+        <div class="inputContainerNew" style="display: flex;">
+          <div class="checkParent"><p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.basicSearch" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Basic Search</span></div>
+          <div class="checkParent"><p-checkbox [(ngModel)]="objectUtServ.fieldTemplate.advancedSearch" binary="true" [ngModelOptions]="{standalone: true}"></p-checkbox><span class="spanLabel">Advanced Search</span></div>
+        </div>
+        <div class="inputContainerNew">
+        <span>
+           <label for="productType2" ><span
+             class="mainLabel selectLabel">Search Type</span></label><br>
+           <select class="selectClass" name="productType2" id="productType2" [(ngModel)]="objectUtServ.fieldTemplate.searchType" required>
+              <option value disabled selected style="color: #cccccc;">Select search type</option>
+              <option *ngFor="let ST of FIELD_SEARCH_TYPE" [value]="ST">{{ST}}</option>
+           </select>
+        </span>
+        </div>
+        <div class="inputContainerNew">
+          <button class="customButton" type="submit">{{(objectUtServ.editMode) ? 'Update' : 'Create'}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-sidebar>
+

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12">
+    <!-- <div class="row">
+      <h4 class="all-roles">{{ headerText }}</h4>
+    </div> -->
+    <div class="row">
+      <div class="col-3 object-container">
+        <!-- <div class="object-content" [class.object-content-active] ="objectname.id==objectUtService.selectedObject?.id"
+            *ngFor="let objectname of objectUtService.objectsOfSelectedRole">
+          <span (click)="selectObjectName(objectname)">{{ objectname.name }}</span>
+        </div> -->
+        <app-objectlist></app-objectlist>
+      </div>
+
+      <div class="col-9 nopadding">
+        <div class="role-wrapper drag-column">
+          <!-- <ng-container  *ngFor="let lgrant of objectUtService.selectedObject?.lgrants"> -->
+            <div class="rectangle-5" [ngClass]="{'custom-container' : (lgrant.active == false || lgrant.active == null)}" 
+                  *ngFor="let lgrant of objectUtService.selectedObject?.lgrants"
+                  (onDragEnd)="dragEnd($event)">
+              <label class="role-type" [class.system]="lgrant.active == true" [class.custom]="(lgrant.active == false || lgrant.active == null)">
+                {{ (lgrant.layout.system == true) ? 'system' : 'custom'}}
+              </label>
+              <div class="contact-container">
+                <div>
+                  <label class="edit-contact">{{ lgrant.layout.name }}</label>
+                  <label class="record-type">{{ lgrant.recordtype.name }}</label>
+                  <span class="record-type-action fa" 
+                        [ngClass]="lgrant.active? 'text-primary fa-check-circle' : 'text-secondary fa-circle-o'"
+                        (click)="changeActiveStatus(lgrant, !lgrant.active)"
+                        >
+                  </span>
+                </div>
+                <p>Description: {{ lgrant.layout.description }}</p>
+              </div>
+            </div>
+          <!-- </ng-container> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

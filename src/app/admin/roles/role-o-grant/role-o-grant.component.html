@@ -1,0 +1,64 @@
+<div class="row no-gutters justify-content-end">
+  <div class="col-2 role-filer">
+    <div class="ui-inputgroup">
+      <p-dropdown class="ui-dropdown actions" [options]="filters" [(ngModel)]="selectedFilter" placeholder="Select filter" (onChange)="dt.filterGlobal($event.value, 'equals')"></p-dropdown>
+    </div>
+  </div>
+</div>
+
+<p-table class="table-striped" 
+[columns]="cols" 
+[rows]="5" 
+#dt 
+[value]="roleUtServ.selectedRole?.roleobjects"
+[globalFilterFields]="['isStandard']"
+>   
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Objects</th>
+        <th *ngFor="let col of columns" class="text-center">
+          <span (click)="accessLevelClick(col.field)" class="hand">{{col.header}}</span>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-roleobj>
+        <tr>
+            <td class="font-weight-bold">
+              <a href="javascript:void(0);">{{roleobj.object.objectName}}</a>
+            </td>
+           
+            <!-- <td *ngFor="let col of columns" class="text-center">
+                <span [class]="objectUtService.objectColorCodeClass[obj[col.field]].class"></span>321
+            </td> -->
+            
+            <td class="text-center">
+              <span class="hand" [ngClass]="objectUtService.objectColorCodeClass[roleobj.create].class" (click)="updateCreateLevel(roleobj)"></span>
+            </td>
+            <td class="text-center">
+              <span class="hand" [ngClass]="objectUtService.objectColorCodeClass[roleobj.read].class" (click)="updateReadLevel(roleobj)"></span>
+            </td>
+            <td class="text-center">
+              <span class="hand" [ngClass]="objectUtService.objectColorCodeClass[roleobj.update].class" (click)="updateUpdateLevel(roleobj)"></span>
+            </td>
+            <td class="text-center">
+              <span class="hand" [ngClass]="objectUtService.objectColorCodeClass[roleobj.delete].class" (click)="updateDeleteLevel(roleobj)"></span>
+            </td>
+          </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Grant Value -->
+  <div class="ui-card-body grant-ind-content">
+    <div class="grant-ind-body">
+      <div class="grant-ind-value">Values</div>
+        <!-- <span class="grant-ind" *ngFor="let obj of objectUtService.objectColorCodeClass">
+          <i [class]="obj.class"></i>{{obj.name}}
+        </span> -->
+      <span class="grant-ind"><i [class]="objectUtService.objectColorCodeClass[0].class"></i>{{objectUtService.objectColorCodeClass[0].name}}</span>
+      <span class="grant-ind"><i [class]="objectUtService.objectColorCodeClass[2].class"></i>{{objectUtService.objectColorCodeClass[2].name}}</span>
+      <span class="grant-ind"><i [class]="objectUtService.objectColorCodeClass[4].class"></i>{{objectUtService.objectColorCodeClass[4].name}}</span>
+      <span class="grant-ind"><i [class]="objectUtService.objectColorCodeClass[8].class"></i>{{objectUtService.objectColorCodeClass[8].name}}</span>
+      <span class="grant-ind"><i [class]="objectUtService.objectColorCodeClass[16].class"></i>{{objectUtService.objectColorCodeClass[16].name}}</span>
+    </div>
+  </div>

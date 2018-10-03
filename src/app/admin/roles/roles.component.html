@@ -1,0 +1,54 @@
+<p-confirmDialog></p-confirmDialog>
+<div class="row no-gutters">
+  <div class="col-12">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <app-roleslist></app-roleslist>
+      </div>
+      <div class="col-12 mt-2" *ngIf="roleUtServ.showCreateNew">
+        <app-rolesform></app-rolesform>
+      </div>
+      <div class="col-12 mt-2" *ngIf="roleUtServ.showDetails">
+        <p-card class="bslist role">
+          <!-- <p-breadcrumb class="breadcrumbtree" [model]="breadCrumbServ?.breadCrumbTreeDataModel"></p-breadcrumb> -->
+
+          <div class="breadcrumbtree ">
+            <div class="ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all ui-breadcrumb ui-widget ui-wid">
+              <ul>
+                <ng-container *ngFor="let item of breadCrumbServ?.breadCrumbTreeDataModel; let ind = index">
+                  <li role="menuitem">
+                    <a class="ui-menuitem-link" href="javascript:void(0)" (click)="selectBreadcrumbEle(ind, item.elevalue)">
+                      <span class="ui-menuitem-text">{{item.label}}</span>
+                    </a>
+                  </li>
+                  <li *ngIf="breadCrumbServ.breadCrumbTreeDataModel.length-1 != ind" class="">/</li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+
+          <div class="loader-overlay ui-widget-overlay"
+            *ngIf="roleUtServ.roleDataLoading || objectUtService.roleObjectDataLoading"
+            > 
+            <p-progressSpinner [style]="{width: '25px', height: '25px'}" strokeWidth="3"></p-progressSpinner>
+          </div>
+          <p-tabView>
+            <p-tabPanel header="Details">
+              <app-roleview></app-roleview>
+            </p-tabPanel>
+            <p-tabPanel header="Grants" class="tbl-roles">
+              <app-rolegrants></app-rolegrants>
+            </p-tabPanel>
+            <p-tabPanel header="O Grants">
+              <app-role-o-grant></app-role-o-grant>
+            </p-tabPanel>
+            <p-tabPanel header="F Grants">
+              <app-role-f-grant></app-role-f-grant>
+            </p-tabPanel>
+            <p-tabPanel header="L Grants">
+              <app-role-l-grant></app-role-l-grant>
+            </p-tabPanel>
+          </p-tabView>
+        </p-card>
+      </div>
+    </div>

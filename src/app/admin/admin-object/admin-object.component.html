@@ -1,0 +1,99 @@
+<p-confirmDialog></p-confirmDialog>
+<div class="row no-gutters">
+  <div class="col-12">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <app-admin-object-list></app-admin-object-list>
+      </div>
+      <div class="col-12 mt-2">
+        <app-admin-object-form></app-admin-object-form>
+      </div>
+      <div class="col-12 mt-2" *ngIf="objectUtService.vRuleEditMode">
+        <app-edit-validation-rules></app-edit-validation-rules>
+      </div>
+      <div class="col-12 mt-2" *ngIf="objectUtService.bRuleEditMode">
+        <app-edit-business-rules></app-edit-business-rules>
+      </div>
+      <div class="col-12 mt-2" *ngIf="objectUtService.showDetails">
+        <p-card class="bslist">
+          <div class="loader-overlay ui-widget-overlay"
+            *ngIf="roleUtServ.roleDataLoading || objectUtService.roleObjectDataLoading"
+            > 
+            <p-progressSpinner [style]="{width: '25px', height: '25px'}" strokeWidth="3"></p-progressSpinner>
+          </div>
+          <p-breadcrumb class="breadcrumbtreeObject" [model]="breadCrumbServ?.breadCrumbTreeDataModel"></p-breadcrumb>
+          <div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 0">
+            <span class="hand text-primary" (click)="editObject()">
+              <i class="fa fa-pencil" style="color: #494949"></i>
+            </span>
+          </div>
+          <div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 1">
+            <span class="hand text-primary" (click)="addObjectField()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+                  <path fill="#666" fill-rule="nonzero" d="M12 6.857H6.857V12H5.143V6.857H0V5.143h5.143V0h1.714v5.143H12z"/>
+              </svg>
+            </span>
+          </div>
+          <div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 2">
+            <span class="hand text-secondary" (click)="addVRule()" style="margin-right: 20px;">
+              <i class="fa fa-plus"></i>
+            </span>
+            <span class="hand text-secondary" (click)="editVRule()" style="margin-right: 20px;">
+              <i class="fa fa-pencil"></i>
+            </span>
+            <span class="hand text-secondary" (click)="deleteVRule()">
+              <i class="fa fa-trash"></i>
+            </span>
+          </div>
+          <div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 3">
+            <span class="hand text-secondary" (click)="addBRule()" style="margin-right: 20px;">
+              <i class="fa fa-plus"></i>
+            </span>
+            <span class="hand text-secondary" (click)="editBRule()" style="margin-right: 20px;">
+              <i class="fa fa-pencil"></i>
+            </span>
+            <span class="hand text-secondary" (click)="deleteBRule()">
+              <i class="fa fa-trash"></i>
+            </span>
+          </div>
+          <!--<div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 3">-->
+            <!--<span class="hand text-primary" (click)="editObject()">-->
+              <!--<i class="fa fa-pencil" style="color: #494949"></i>-->
+            <!--</span>-->
+          <!--</div>-->
+          <!--<div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 4">-->
+            <!--<span class="hand text-primary" (click)="editObject()">-->
+              <!--<i class="fa fa-pencil" style="color: #494949"></i>-->
+            <!--</span>-->
+          <!--</div>-->
+          <!--<div style="position: absolute; right: 20px;" *ngIf="selectedTabIndex === 5">-->
+            <!--<span class="hand text-primary" (click)="editObject()">-->
+              <!--<i class="fa fa-pencil" style="color: #494949"></i>-->
+            <!--</span>-->
+          <!--</div>-->
+          <p-tabView (onChange)="handleChange($event)">
+            <p-tabPanel header="DETAILS" [selected]="1===1">
+              <app-admin-object-details></app-admin-object-details>
+            </p-tabPanel>
+            <p-tabPanel header="FIELDS">
+              <app-admin-object-fields></app-admin-object-fields>
+            </p-tabPanel>
+            <p-tabPanel header="VALIDATION RULES">
+              <app-admin-object-validation-rules></app-admin-object-validation-rules>
+            </p-tabPanel>
+            <p-tabPanel header="BUSINESS RULES">
+              <app-admin-object-business-rules></app-admin-object-business-rules>
+            </p-tabPanel>
+            <p-tabPanel header="LAYOUTS">
+              <app-admin-object-layouts></app-admin-object-layouts>
+            </p-tabPanel>
+            <p-tabPanel header="ROLES">
+              <app-admin-object-roles></app-admin-object-roles>
+            </p-tabPanel>
+          </p-tabView>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+

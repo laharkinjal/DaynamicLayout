@@ -1,0 +1,4 @@
+<div class="object-content" [class.object-content-active] ="roleObject.object.id==objectUtService.selectedObject?.id"
+    *ngFor="let roleObject of roleUtServ.selectedRole?.roleobjects">
+  <span (click)="selectObjectName(roleObject.object)">{{ roleObject.object.objectName }}</span>
+</div>

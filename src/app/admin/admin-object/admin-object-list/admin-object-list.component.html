@@ -1,0 +1,68 @@
+<p-card class="bslist">
+  <p-table class="table-striped" [columns]="cols" [paginator]="true" [rows]="5" #dt [value]="objectUtService.allObjects">
+    <ng-template pTemplate="caption">
+      <div class="row no-gutters">
+        <div class="col-9 caption-header">
+          <span class="align-middle">Objects</span>
+        </div>
+        <div class="col-3">
+          <div class="ui-inputgroup">
+            <span class="ui-inputgroup-addon">
+              <i class="fa fa-search"></i>
+            </span>
+            <input style="width:80%" id="float-input" type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')"
+                   icon="fa fa-search" class="search" placeholder="Search Objects">
+            <button pButton type="button" styleClass="ui-button-info ui-button-rounded" class="button-rounded" icon="fa fa-plus" (click)="onAddObject()"></button>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: row;">
+        <div class="normalTab" [ngClass]="{'activeTab': isStandard}" (click)="isStandard = true">STANDARD</div>
+        <div class="normalTab" [ngClass]="{'activeTab': !isStandard}" (click)="isStandard = false">CUSTOM</div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns style="margin-top: 0; padding-top: 0;">
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th>Description</th>
+        <th>API Name</th>
+        <th>Master Object</th>
+        <th>Created by</th>
+        <th width="8%">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-obj>
+      <tr *ngIf="obj.isStandard === isStandard">
+        <td class="font-weight-bold">
+          <a (click)="selectObject(obj)" href="javascript:void(0);">{{obj.objectName}}</a>
+        </td>
+        <td>{{obj.description}}</td>
+        <td>
+          {{obj.apiName}}
+        </td>
+        <td>
+          {{obj.masterObject}}
+        </td>
+        <td>
+          {{obj.createdBy}}
+        </td>
+        <td>
+          <!--<span class="hand text-primary" (click)="editObject(obj)">-->
+            <!--<i class="fa fa-pencil"></i>-->
+          <!--</span>-->
+          <span class="ml-3 hand text-secondary" (click)="deleteObject(obj.id)">
+            <i class="fa fa-trash"></i>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+
+
+
+

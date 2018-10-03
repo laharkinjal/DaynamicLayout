@@ -1,0 +1,46 @@
+<p-table class="table-striped" [columns]="cols" [rows]="5" #dt [value]="buUtilityServ.objectNames">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Objects</th>
+        <th *ngFor="let col of columns" class="text-center">{{col.header}}</th>
+      </tr>
+    </ng-template>
+ 
+    <ng-template pTemplate="body" let-obj>
+        <tr>
+            <td class="font-weight-bold">
+              <a href="javascript:void(0);">{{obj.objectName}}</a>
+            </td>
+            <!-- <td *ngFor="let col of columns" class="text-center">
+                <span [class]="objectColorCodeClass[0][obj[col.field]]"></span>
+            </td> -->
+            <td class="text-center">
+              <span [class]="objectColorCodeClass[obj.create].class"></span>
+            </td>
+            <td class="text-center">
+              <span [class]="objectColorCodeClass[obj.read].class"></span>
+            </td>
+            <td class="text-center">
+              <span [class]="objectColorCodeClass[obj.update].class"></span>
+            </td>
+            <td class="text-center">
+              <span [class]="objectColorCodeClass[obj.delete].class"></span>
+            </td>
+          </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Grant Value -->
+  <div class="ui-card-body grant-ind-content">
+    <div class="grant-ind-body">
+      <div class="grant-ind-value">Values</div>
+      <!-- <span *ngFor="let cls of objectColorCodeClass">
+        <i [class]="cls.class"></i>{{cls.name}} - {{cls}}
+      </span> -->
+      <span class="grant-ind"><i [class]="objectColorCodeClass['none'].class"></i>{{objectColorCodeClass['none'].name}}</span>
+      <span class="grant-ind"><i [class]="objectColorCodeClass['user'].class"></i>{{objectColorCodeClass['user'].name}}</span>
+      <span class="grant-ind"><i [class]="objectColorCodeClass['bu'].class"></i>{{objectColorCodeClass['bu'].name}}</span>
+      <span class="grant-ind"><i [class]="objectColorCodeClass['buhierarchy'].class"></i>{{objectColorCodeClass['buhierarchy'].name}}</span>
+      <span class="grant-ind"><i [class]="objectColorCodeClass['corporate'].class"></i>{{objectColorCodeClass['corporate'].name}}</span>
+    </div>
+  </div>

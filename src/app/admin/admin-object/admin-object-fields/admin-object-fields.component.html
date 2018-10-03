@@ -1,0 +1,112 @@
+<div style="margin: 1em; padding-bottom: 3em;">
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="STANDARD" [selected]="1===1">
+      <div *ngIf="objectUtServ.selectedObject">
+        <p-card class="bslist">
+          <p-table class="table-striped" [columns]="cols" [paginator]="true" [rows]="5" #dt [value]="objectUtServ.selectedObject.fields">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Description</th>
+                <th>API Name</th>
+                <th>Mandatory</th>
+                <th>Secure</th>
+                <th>Type</th>
+                <th width="8%">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-obj>
+              <tr *ngIf="!obj.isCustom">
+                <td class="font-weight-bold">
+                  <a (click)="selectObjectField(obj)" href="javascript:void(0);">{{obj.name}}</a>
+                </td>
+                <td>{{obj.description}}</td>
+                <td>
+                  {{obj.apiName}}
+                </td>
+                <td>
+                  <span *ngIf="obj.mandatory" class="ml-3" [ngClass]="obj.mandatory ? 'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="obj.secure" class="ml-3" [ngClass]="obj.secure ? 'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                  </span>
+                </td>
+                <td>
+                  {{obj.type}}
+                </td>
+                <td>
+                  <span class="hand text-primary" (click)="editObjectField(obj)">
+                    <i class="fa fa-pencil"></i>
+                  </span>
+                  <span class="ml-3 hand text-secondary" (click)="deleteObjectField(obj.id)">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-card>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="CUSTOM">
+      <div *ngIf="objectUtServ.selectedObject">
+        <p-card class="bslist">
+          <p-table class="table-striped" [columns]="cols" [paginator]="true" [rows]="5" #dt [value]="objectUtServ.selectedObject.fields">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Description</th>
+                <th>API Name</th>
+                <th>Mandatory</th>
+                <th>Secure</th>
+                <th>Type</th>
+                <th width="8%">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-obj>
+              <tr *ngIf="!obj.isCustom">
+                <td class="font-weight-bold">
+                  <a (click)="selectObjectField(obj)" href="javascript:void(0);">{{obj.name}}</a>
+                </td>
+                <td>{{obj.description}}</td>
+                <td>
+                  {{obj.apiName}}
+                </td>
+                <td>
+                  <span *ngIf="obj.isMandatory" class="ml-3" [ngClass]="obj.isMandatory ? 'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="obj.secure" class="ml-3" [ngClass]="obj.secure ? 'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                  </span>
+                </td>
+                <td>
+                  {{obj.type}}
+                </td>
+                <td>
+                  <span class="hand text-primary" (click)="editObjectField(obj)">
+                    <i class="fa fa-pencil"></i>
+                  </span>
+                  <span class="ml-3 hand text-secondary" (click)="deleteObjectField(obj.id)">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-card>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>

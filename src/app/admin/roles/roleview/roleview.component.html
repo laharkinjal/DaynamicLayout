@@ -1,0 +1,48 @@
+<div class="unit-role-wrapper">
+    <div class="row no-gutters justify-content-end role">
+        <div class="col-2 role-filer text-right">
+            <span (click)="showAddOverlay()" class="hand text-primary">
+                <i class="fa fa-plus"></i>
+            </span>
+            <span (click)="deleteChildren()" class="ml-3 hand text-secondary">
+                <i class="fa fa-trash"></i>
+            </span>
+            <div *ngIf="isShowAddLayer" class="add-role-overlay form-control">
+                <div class="form-group">
+                    <p-dropdown [options]="unassignedRoles" #children placeholder="Select children"></p-dropdown>
+                </div>
+                <button type="button" pButton label="Add" (click)="addChildren(children.value)" ></button>
+            </div>
+        </div>
+    </div>
+
+<p-treeTable class="bsview table-striped" 
+    [loading]="roleUtServ.treeTableLoading" 
+    selectionMode="single" 
+    (onNodeExpand)="onNodeExpand($event)"
+    [value]="roleUtServ.rootNodes">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Role Name</th>
+            <th>Description</th>
+            <th>Last Updated</th>
+            <th>Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.name}}
+            </td>
+            <td>{{rowData.description}}</td>
+            <td>{{rowData.updateDate | date:"dd/MM/yyyy"}}</td>
+            <td>
+                <span class="ml-3" [ngClass]="rowData.active  ?'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+</div>

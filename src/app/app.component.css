@@ -1,0 +1,12 @@
+.side-bar-content{
+    width:auto;
+}
+
+.side-nav-menu-item.active{
+    background: #e4e4e2;
+    color:#7b58b9;
+}
+
+.side-nav-menu-item  a{
+    outline: none !important;
+}

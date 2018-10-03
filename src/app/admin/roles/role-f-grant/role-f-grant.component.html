@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-12">
+    <!-- <div class="row">
+      <h4 class="all-roles">{{ headerText }}</h4>
+    </div> -->
+    <div class="row">
+      <div class="col-3 object-container">
+        <!-- <div class="object-content" [class.object-content-active] ="objectname.id==objectUtService.selectedObject?.id"
+            *ngFor="let objectname of objectUtService.objectsOfSelectedRole">
+          <span (click)="selectObjectName(objectname)">{{ objectname.name }}</span>
+        </div> -->
+        <app-objectlist></app-objectlist>
+      </div>
+ 
+      <div class="col-9 nopadding">
+        <div class="role-wrapper drag-column">
+          <div class="rectangle-5" [ngClass]="{'custom-container' : (fgrant.active == false || fgrant.system == null)}" 
+                *ngFor="let fgrant of objectUtService.selectedObject?.fgrants"
+                (onDragEnd)="dragEnd($event)">
+            <label class="role-type" [class.system]="fgrant.active == true" [class.custom]="(fgrant.active == false || fgrant.active == null)">
+              {{ (fgrant.field.system == true) ? 'system' : 'custom' }}
+            </label>
+            <div class="contact-container">
+              <div>
+                <label class="edit-contact">Field Name</label>
+                <label class="record-type">{{ fgrant.field.name }}</label>
+                <span class="record-type-action fa" 
+                      [ngClass]="fgrant.active? 'text-primary fa-check-circle' : 'text-secondary fa-circle-o'"
+                      (click)="changeActiveStatus(fgrant, !fgrant.active)"
+                      >
+                </span>
+              </div>
+              <p>Description: {{fgrant.field.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

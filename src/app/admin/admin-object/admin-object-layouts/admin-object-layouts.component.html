@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+
+      <div class="col-3 object-container">
+        <app-recordtype-list></app-recordtype-list>
+      </div>
+
+      <div class="col-9 nopadding">
+        <div class="role-wrapper drag-column">
+            <div class="rectangle-5" [ngClass]="{'custom-container' : (layout.active == false || layout.active == null)}" 
+                  *ngFor="let layout of objectUtService.selectedRecordType?.layouts">
+              <label class="role-type" [class.system]="layout.active == true" [class.custom]="(layout.active == false || layout.active == null)">
+                {{ (layout.system == true) ? 'system' : 'custom'}}
+              </label>
+              <div class="contact-container">
+                <div>
+                  <label class="edit-contact">{{ layout.name }}</label>
+                  <div class="record-type-action">
+                    <span class="text-primary fa fa-pencil" (click)="editLayout(layout)"></span>
+                    <span class="text-primary fa fa-trash ml-3" (click)="deleteLayout(layout.id)"></span>
+                  </div>
+                </div>
+                <p>Description: {{ layout.description }}</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

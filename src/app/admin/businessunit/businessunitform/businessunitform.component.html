@@ -1,0 +1,35 @@
+<p-card>
+  <p-header>
+    <div class="row no-gutters">
+      <div class="col-6">
+        <h6>Business Unit Form</h6>
+      </div>
+      <div class="col-6">
+        <button pButton type="button" (click)="cancelCreate()">Cancel</button>
+      </div>
+    </div>    
+  </p-header>
+  <form #form="ngForm" (ngSubmit)="createBU()" >
+    <div class="row no-gutters">
+      <div class="col-3">
+        <span class="ui-float-label">
+          <input id="float-input" required name="buName" #buName="ngModel" [(ngModel)]="buUtilityServ.buTemplate.name" style="width:100%" type="text" pInputText> 
+          <label for="float-input">BU Name</label>
+        </span> 
+      </div>
+      <div class="col-3">
+        <span class="ui-float-label">
+          <input id="float-input" required name="desc" #desc="ngModel" [(ngModel)]="buUtilityServ.buTemplate.description" style="width:100%" type="text" pInputText> 
+          <label for="float-input">BU Description</label>
+        </span> 
+      </div>
+      <div class="col-3">
+        <p-dropdown required [options]="parentDropDown" name="parent" #parent="ngModel" [(ngModel)]="buUtilityServ.buTemplate.parentId"></p-dropdown>
+      </div>
+      <div class="col-3">
+        <button *ngIf="!buUtilityServ.selectedBu" [disabled]="form.invalid" type="submit" pButton> Create </button>
+        <button *ngIf="buUtilityServ.selectedBu" [disabled]="form.invalid" type="submit" pButton> Update </button>
+      </div>
+    </div>  
+  </form>
+</p-card>

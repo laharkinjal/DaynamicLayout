@@ -1,0 +1,28 @@
+<div class="row no-gutters">
+  <div class="col-12">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <app-businessunitlist></app-businessunitlist>
+      </div>
+      <div class="col-12 mt-2">
+        <app-businessunitform *ngIf="buUtilityServ.showCreateNew"></app-businessunitform>
+      </div>
+      <div class="col-12 mt-2" *ngIf="buUtilityServ.showDetails">
+        <p-card class="bslist">
+          <p-breadcrumb class="breadcrumbtree" [model]="breadCrumbServ?.breadCrumbTreeDataModel"></p-breadcrumb>
+          <p-tabView>
+            <p-tabPanel header="Details">
+              <app-businessunitview></app-businessunitview>
+            </p-tabPanel>
+            <p-tabPanel header="Roles" class="tbl-roles">
+              <app-bussinessunitroles></app-bussinessunitroles>
+            </p-tabPanel>
+            <p-tabPanel header="Layouts">
+              <app-userlist [used]="'external'"></app-userlist>
+            </p-tabPanel>
+          </p-tabView>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

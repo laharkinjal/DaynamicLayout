@@ -1,0 +1,33 @@
+<p-sidebar [(visible)]="roleUtServ.showCreateNew" position="right" [baseZIndex]="10000" styleClass="ui-sidebar-sm">
+  <div class="ui-g role">
+
+    <form #form="ngForm" (ngSubmit)="createRole()">
+      <div class="sidebar-header">
+        <span>
+          {{(role.id) ? 'Edit Role Details' : 'Add New Role'}}
+        </span>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-inputgroup">
+          <input type="text" pInputText placeholder="Name" required name="roleName" [(ngModel)]="role.name">
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-inputgroup">
+          <input type="text" pInputText placeholder="Description" required name="roleDescription" [(ngModel)]="role.description">
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-inputgroup">
+          <p-checkbox name="active" binary="true" [(ngModel)]="role.active" label="Active"></p-checkbox>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-inputgroup">
+          <p-button [disabled]="form.invalid" type="submit" [label]="(role.id) ? 'UPDATE' : 'CREATE'"></p-button>
+        </div>
+      </div>
+    </form>
+    
+  </div>
+</p-sidebar>

@@ -1,0 +1,30 @@
+<!-- <h5>{{buUtilityServ.selectedBu.name}} Hierarchy</h5> -->
+<p-treeTable class="bsview table-striped" 
+    [loading]="buUtilityServ.treeTableLoading" 
+    selectionMode="single" 
+    (onNodeExpand)="onNodeExpand($event)"
+    [value]="buUtilityServ.rootNodes">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>BU Name</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.name}}
+            </td>
+            <td>{{rowData.description}}</td>
+            
+            <!-- BN -->
+            <td>
+                <span class="ml-3" [ngClass]="rowData.active  ?'text-success' : 'text-secondary'">
+                    <i class="fa fa-circle"></i>
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>

@@ -1,0 +1,69 @@
+<div class="unit-role-wrapper">
+  <div class="row no-gutters justify-content-end">
+    <div class="col-3 role-filer">
+      <div class="ui-inputgroup search-container">
+        <span class="ui-inputgroup-addon">
+          <i class="fa fa-search"></i>
+        </span>
+        <input style="width:100%" id="float-input" type="text" pInputText #searchText
+            class="search" placeholder="Search Grants">
+      <!-- </div> -->
+    <!-- </div>
+    <div class="col-2 role-filer"> -->
+      <!-- <div class="ui-inputgroup"> -->
+          <span class="hand text-secondary">
+              <i class="pi pi-plus"></i>
+          </span>
+          <span class="ml-3 hand text-secondary">
+              <i class="fa fa-trash"></i>
+          </span>
+          <span class="ml-3 hand text-secondary">
+              <i class="fa fa-reorder"></i>
+          </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <h4 class="all-roles">Unassigned Grants</h4>
+      <div class="role-wrapper drop-column" [ngClass]="{'ui-highlight-car': grant}" 
+      pDroppable="agrant"  (onDrop)="assignGrantDrop($event)">
+
+        <ng-container *ngFor="let grant of roleUtServ.allGrants | searchobjects:searchText.value:['description','name']" >
+          <div class="rectangle-6" *ngIf="!grant.roleId"
+          pDraggable="ugrant" 
+          (onDragStart)="unassignGrantDragStart($event, grant)" (onDragEnd)="unassignGrantDragEnd($event)">
+            <label class="role-type" [class.system]="grant.active == true" [class.custom]="(grant.active == false || grant.active == null)">
+              {{ (grant.system == true ) ? 'system' : 'custom'}}
+            </label>
+            <div class="contact-container">
+              <h3 class="edit-contact">{{ grant.name }}</h3>
+              <p>Description: {{grant.description}}</p>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+ 
+    <div class=" col-6">
+      <h4 class="assigned-roles">Assigned Grants</h4>
+      <div class="role-wrapper drop-column" [ngClass]="{'ui-highlight-car': rolegrant}" 
+        pDroppable="ugrant" (onDrop)="unassignGrantDrop($event)">
+        
+        <div class="rectangle-6" *ngFor="let rolegrant of roleUtServ.selectedRole.grants | searchobjects:searchText.value" 
+          pDraggable="agrant" (onDragStart)="assignGrantDragStart($event, rolegrant)" (onDragEnd)="assignGrantDragEnd($event)">
+          <label class="role-type" [class.system]="rolegrant.active == true" [class.custom]="(rolegrant.active == false || rolegrant.active == null)">
+            {{ (rolegrant.system == true ) ? 'system' : 'custom'}}
+          </label>
+          <div class="contact-container">
+            <h3 class="edit-contact">{{ rolegrant.name }}</h3>
+            <p>Description: {{rolegrant.description}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

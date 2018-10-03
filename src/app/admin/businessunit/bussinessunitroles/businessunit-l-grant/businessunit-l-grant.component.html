@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-12">
+    <!-- <div class="row">
+      <h4 class="all-roles">{{ headerText }}</h4>
+    </div> -->
+    <div class="row">
+      <div class="col-3 object-container">
+        <div class="object-content" [class.object-content-active] ="objectname.id==buUtilityServ.selectedObject?.id"
+            *ngFor="let objectname of buUtilityServ.objectNames">
+          <span (click)="selectObjectName(objectname)">{{ objectname.objectName }}</span>
+        </div>
+      </div>
+
+      <div class="col-9 nopadding">
+        <div class="role-wrapper drag-column">
+          <div class="rectangle-5" [ngClass]="{'custom-container' : (role.active == false) || (role.active == null)}" 
+                *ngFor="let role of buUtilityServ.allRoles"
+                (onDragEnd)="dragEnd($event)">
+            <label class="role-type" [class.system]="role.active == true" [class.custom]="(role.active == false) || (role.active == null)">{{ (role.system == false || role.system == null) ? 'custom' : 'system'}}</label>
+            <div class="contact-container">
+              <div>
+                <label class="edit-contact">{{ role.layoutname?role.layoutname:'Layout Name' }}</label>
+                <label class="record-type">{{ role.recordtype?role.recordtype:'Record Type' }}</label>
+                <span class="record-type-action fa" 
+                      [ngClass]="role.active? 'text-primary fa-check-circle' : 'text-secondary fa-circle-o'"
+                      (click)="changeActiveStatus(role.id, role.active)"
+                      >
+                </span>
+              </div>
+              <p>Description: {{role.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

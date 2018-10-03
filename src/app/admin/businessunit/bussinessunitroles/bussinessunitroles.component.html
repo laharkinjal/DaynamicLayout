@@ -1,0 +1,77 @@
+<div class="unit-role-wrapper">
+  <div class="loader-overlay ui-widget-overlay"
+   *ngIf="buUtilityServ.roleDataLoading"> 
+    <p-progressSpinner [style]="{width: '25px', height: '25px'}" strokeWidth="3"></p-progressSpinner>
+  </div>
+        
+  <div class="row no-gutters justify-content-end">
+    <div class="col-2 role-filer">
+      <div class="ui-inputgroup search-container">
+        <span class="ui-inputgroup-addon">
+          <i class="fa fa-search"></i>
+        </span>
+        <input style="width:100%" id="float-input" type="text" pInputText (keyup)="filterGlobal($event.target.value, 'contains')"
+          icon="fa fa-search" class="search" placeholder="Search Roles">
+      </div>
+    </div>
+    <div class="col-2 role-filer">
+      <div class="ui-inputgroup">
+        <p-dropdown class="ui-dropdown actions" [options]="filters" [(ngModel)]="selectedFilter" (onChange)="filterOnChange()"></p-dropdown>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row" [ngSwitch]="selectedFilter">
+    <ng-container *ngSwitchCase="'net-o-grants'">
+        <businessunit-o-grant></businessunit-o-grant>
+    </ng-container>
+    <ng-container *ngSwitchCase="'net-l-grants'">
+        <businessunit-l-grant></businessunit-l-grant>
+    </ng-container>
+    <ng-container *ngSwitchCase="''">
+      <div class="col-6">
+        <h4 class="all-roles">Un-Assigned Roles</h4>
+        <div class="role-wrapper drag-column">
+          <div class="rectangle-6" *ngFor="let role of buUtilityServ.allRoles" pDraggable="role" (onDragStart)="dragStart($event, role)"
+            (onDragEnd)="dragEnd($event)">
+            <label class="role-type" [class.system]="role.active == true" [class.custom]="(role.active == false) || (role.active == null)">{{
+              (role.system == false || role.system == null) ? 'custom' : 'system'}}</label>
+            <div class="contact-container">
+              <h3 class="edit-contact">{{ role.name }}</h3>
+              <p>Description: {{role.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class=" col-6">
+        <h4 class="assigned-roles">Assigned Roles</h4>
+        <div class="role-wrapper drop-column" (onDrop)="drop($event)" [ngClass]="{'ui-highlight-car': role}" pDroppable="role">
+          <div class="rectangle-6" *ngFor="let role of buUtilityServ.assignedRoles">
+            <label class="role-type" [class.system]="role.active == true" [class.custom]="(role.active == false) || (role.active == null)">{{
+              (role.system == false || role.system == null) ? 'custom' : 'system'}}</label>
+            <div class="contact-container">
+              <h3 class="edit-contact">{{ role.roleName }}</h3>
+              <p>Description: {{role.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container  *ngSwitchDefault>
+      <div class="col-12">
+          <h4 class="all-roles">{{ headerText }}</h4>
+          <div class="role-wrapper drag-column">
+            <div class="rectangle-4" *ngFor="let role of buUtilityServ.allRoles" (onDragEnd)="dragEnd($event)">
+              <label class="role-type" [class.system]="role.active == true" [class.custom]="(role.active == false) || (role.active == null)">{{
+                (role.system == false || role.system == null) ? 'custom' : 'system'}}</label>
+              <div class="contact-container">
+                <h3 class="edit-contact">{{ role.name }}</h3>
+                <p>Description: {{role.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </ng-container >
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<p-sidebar position="right"  [(visible)]="objectUtService.vRuleEditMode" [baseZIndex]="1000" styleClass="ui-sidebar-lg">
+  <form #form="ngForm" (ngSubmit)="saveVRule()">
+    <div class="ui-g-12 sidebar-header">
+        {{(objectUtService.selectedVRule?.id) ? 'Edit Validation Rules' : 'Add Validation Rules'}}
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText placeholder="Rule Name" required name="ruleName" [(ngModel)]="vrule.name">
+      </div>
+    </div>
+
+    <div class="ui-g-12 sidebar-header">
+        Validation Rules Editor
+    </div>
+    <div class="ui-g-12 bslist">
+      <div class="ui-g-4 ui-inputgroup">
+          <span class="ui-inputgroup-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input style="width:100%" id="float-input" type="text" pInputText (input)="dt.filterGlobal($event.target.value, 'contains')"
+            icon="fa fa-search" class="search" placeholder="Search Field">
+      </div>
+      <div class="ui-g-8">
+        <p-autoComplete placeholder="functions" [suggestions]="searchFunctionResults" (completeMethod)="searchFunction($event)" [multiple]="true"
+        (onSelect) ="selectFunction($event, funcTextArea)"
+        ></p-autoComplete>
+      </div>
+    </div>
+
+    <div class="ui-g-12 rule-box">
+      <div class="ui-g-4 p-0 border-right">
+        <p-table selectionMode="single" [value]="objectUtService.selectedObject?.fields"
+        #dt [globalFilterFields]="['name']"
+        dataKey="name" [(selection)]="selectedField" (onRowSelect)="selectField($event, funcTextArea)">
+          <ng-template pTemplate="body" let-field>
+            <tr [pSelectableRow]="field">
+              <td>{{field.name}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="ui-g-8 function-box">
+        <textarea pInputTextarea placeholder="Double click on a field name to select and start writing your code here" 
+          style="width:100%; height: 100%" #funcTextArea name="statement" [(ngModel)]="vrule.statement"></textarea>
+      </div>
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton class="mr-2" [disabled]="form.invalid" type="button" label="CHECK SYNTAX" (click) = "checkSyntax()"></button>
+      <button pButton [disabled]="form.invalid" type="submit" [label]="(objectUtService.selectedVRule?.id) ? 'UPDATE' : 'CREATE'"></button>
+    </div>
+  </form>
+</p-sidebar>

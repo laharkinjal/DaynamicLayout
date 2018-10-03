@@ -1,0 +1,4 @@
+<div class="object-content" [class.object-content-active] ="record.id == objectUtService.selectedRecordType?.id"
+    *ngFor="let record of objectUtService.selectedObject?.recordtypes">
+  <span (click)="selectRecordType(record)">{{ record.name }}</span>
+</div>

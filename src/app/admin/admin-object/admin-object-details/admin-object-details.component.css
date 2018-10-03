@@ -1,0 +1,37 @@
+@font-face {
+  font-family: Roboto;
+  src: url('../../../../assets/fonts/Roboto.ttf') format("truetype");
+}
+
+.parentTab {
+  display: flex;
+  flex-direction: row;
+}
+
+.childTab {
+  flex: 1;
+  margin: 1em;
+}
+
+.childElement {
+  margin: 1em;
+  display: flex;
+  font-size: 12px;
+  font-family: Roboto;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #666666;
+}
+
+.tab1 {
+  flex: 1;
+}
+
+.tab2 {
+  flex: 3;
+  color: #333333;
+}
